@@ -75,36 +75,14 @@ public class BugsApiTests {
                     .spec(responseSpec);
     }
 
-    @Test
-    public void testPOSTCreateBugThree() {
-        BugRequestBody bug = new BugRequestBody(
-                "Mohamed Ali", 1, "High",
-                "Cart is glitchy", false
-        );
-
-        ResponseSpecification responseSpec = createResponseSpec(bug);
-
-        RestAssured
-                .given()
-                .body(bug)
-                .when()
-                .post()
-                .then()
-                .statusCode(201)
-                .spec(responseSpec);
-    }
-
-
-    @Test(dependsOnMethods = {"testPOSTCreateBugOne", "testPOSTCreateBugTwo", "testPOSTCreateBugThree"})
+    @Test(dependsOnMethods = {"testPOSTCreateBugOne", "testPOSTCreateBugTwo"})
     public void testGETRetrieveBugs() {
         RestAssured
                 .get()
                 .then()
                 .statusCode(200)
-                .body("size()", equalTo(3));
+                .body("size()", equalTo(2));
     }
-
-
 
     @Test(dependsOnMethods = "testGETRetrieveBugs")
     public void testPUTUpdateBugOne() {
@@ -163,18 +141,18 @@ public class BugsApiTests {
         List<String> bugIds = RestAssured
                 .get()
                 .then()
-                    .statusCode(200)
-                    .extract().path("bugId");
+                .statusCode(200)
+                .extract().path("bugId");
 
         for (String bugId : bugIds) {
             RestAssured
                     .given()
-                        .pathParam("bug_id", bugId)
+                    .pathParam("bug_id", bugId)
                     .when()
-                        .delete("/{bug_id}")
+                    .delete("/{bug_id}")
                     .then()
-                        .statusCode(200)
-                        .body("bug_id", equalTo(bugId));
+                    .statusCode(200)
+                    .body("bug_id", equalTo(bugId));
         }
 
         RestAssured

@@ -178,10 +178,13 @@ public class BugsApiTests {
         }
 
         RestAssured
+                .given()
+                .contentType(ContentType.JSON)
+                .when()
                 .get()
                 .then()
-                    .statusCode(200)
-                    .body("size()", equalTo(0));
+                .statusCode(200)
+                .body("size()", equalTo(0));
     }
 
 }

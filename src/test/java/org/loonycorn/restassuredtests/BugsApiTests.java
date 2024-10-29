@@ -75,7 +75,6 @@ public class BugsApiTests {
                     .spec(responseSpec);
     }
 
-
     @Test
     public void testPOSTCreateBugThree() {
         BugRequestBody bug = new BugRequestBody(
@@ -95,14 +94,16 @@ public class BugsApiTests {
                 .spec(responseSpec);
     }
 
+
     @Test(dependsOnMethods = {"testPOSTCreateBugOne", "testPOSTCreateBugTwo", "testPOSTCreateBugThree"})
     public void testGETRetrieveBugs() {
         RestAssured
                 .get()
                 .then()
-                    .statusCode(200)
-                    .body("size()", equalTo(3));
+                .statusCode(200)
+                .body("size()", equalTo(3));
     }
+
 
 
     @Test(dependsOnMethods = "testGETRetrieveBugs")

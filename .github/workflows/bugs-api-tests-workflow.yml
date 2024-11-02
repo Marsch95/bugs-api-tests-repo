@@ -19,6 +19,10 @@ jobs:
           cache: maven
       - name: Test Execution
         run: mvn -B -f pom.xml clean test
+      - name: Get List of Files
+        run: ls -a
+      - name: What is in the target folder
+        run: ls -a target
       - name: SureFire Reports
         uses: actions/upload-artifact@v4
         with:

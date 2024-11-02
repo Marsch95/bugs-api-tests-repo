@@ -18,11 +18,13 @@ public class BugsApiTests {
 
     @BeforeSuite
     void setup() {
-        RestAssured.baseURI = "http://localhost:8090";
+//        RestAssured.baseURI = "http://localhost:8090";
+        RestAssured.baseURI = "https://efd0-2a02-8071-5aa2-fe0-3d87-c916-234a-3bdd.ngrok-free.app/";
         RestAssured.basePath = "bugs";
 
         RestAssured.requestSpecification = new RequestSpecBuilder()
                 .setContentType(ContentType.JSON)
+                .addHeader("ngrok-skip-browser-warning", "true")
                 .build();
     }
 
